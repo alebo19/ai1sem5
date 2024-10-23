@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maps with Leaflet</title>
+    <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" />
+    <script src="leaflet-1.7.1/leaflet-src.js"></script>
+    <script src="leaflet-1.7.1/leaflet-providers.js"></script>
+    <script src="leaflet-1.7.1/leaflet-image.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+    <div id="container">
+        <div id="result">
+            <div id="map"></div>
+        </div>
+        <div class="solved-puzzle" id="solvedPuzzleContainer">
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+                <div class="sp"></div>
+            </div>
+        </div>
+    </div>
+
+<div class="buttons">
+    <button onclick="getLocation()" id="location">Moja lokalizacja</button>
+    <button onclick="doImage()" id="raster">Pobierz mape</button>
+    <button onclick="makePuzzle()" disabled id="puzzle">PUZZLE</button>
+</div>
+
+<div class="mixed-puzzle" id="mixedPuzzleContainer">
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+    <div class="mp"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

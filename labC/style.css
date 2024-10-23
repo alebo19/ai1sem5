@@ -1,0 +1,40 @@
+#container{
+    display: flex;
+    margin-left: 20px;
+}
+#map {
+    width: 600px;
+    height: 300px;
+    border: 1px solid black;
+}
+.solved-puzzle {
+    float: right;
+    width: 36.5%;
+    height: 300px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    border: 1px solid black;
+}
+.sp {
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+}
+.mp{
+    border: 1px solid black;
+    height: 100%;
+    width: 100%;
+}
+.mixed-puzzle {
+    width: 73%;
+    height: 150px;
+    margin-left: 20px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    border: solid black 1px;
+}
+.buttons{
+    margin-left: 20px;
+}

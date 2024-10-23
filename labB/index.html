@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+</head>
+<body>
+    <h1>To do list</h1>
+
+    <!-- Formularz do dodawania nowych zadań -->
+    <form id="taskForm">
+        <input type="text" id="taskInput" placeholder="Task" required>
+        <input type="date" id="taskDate" required>
+        <button type="submit">Add</button>
+    </form>
+    <!-- Pole do wyszukiwania zadań -->
+    <input type="text" id="searchInput" placeholder="Search">
+    <h3>I need:</h3>
+    <!-- Lista zadań -->
+    <ul id="taskList"></ul>
+
+    <script>
+        const taskForm = document.getElementById('taskForm');
+        const taskInput = document.getElementById('taskInput');
+        const taskDate = document.getElementById('taskDate');
+        const taskList = document.getElementById('taskList');
+        const searchInput = document.getElementById('searchInput');
+
+        // Załaduj zadania z localStorage przy uruchomieniu strony
+        window.addEventListener('load', loadTasksFromStorage);
+
+        // Funkcja do dodawania zadania
+        taskForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const taskText = taskInput.value;
+            const dueDate = taskDate.value;
+
+            if (taskText && dueDate) {
+                const task = {
+                    text: taskText,
+                    date: dueDate
+                };
+
+                addTaskToList(task);
+                saveTaskToStorage(task);
+
+                taskInput.value = '';
+                taskDate.value = '';
+            }
+        });
+
+        
+        // Funkcja do dodania zadania do HTML i dodania przycisku usuwania
+        function addTaskToList(task) {
+            const li = document.createElement('li');
+            li.textContent = `${task.text} (Date: ${task.date})`;
+
+            // Dodaj przycisk usunięcia
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Done!';
+            deleteButton.style.marginLeft = '10px';
+
+            // Usuwanie zadania po kliknięciu przycisku
+            deleteButton.addEventListener('click', function() {
+                taskList.removeChild(li);
+                removeTaskFromStorage(task.text, task.date);
+            });
+
+            li.appendChild(deleteButton);
+            taskList.appendChild(li);
+        }
+
+        // Funkcja do zapisu zadania w localStorage
+        function saveTaskToStorage(task) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(task);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Funkcja do usuwania zadania z localStorage
+        function removeTaskFromStorage(taskText, taskDate) {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks = tasks.filter(task => !(task.text === taskText && task.date === taskDate));
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Funkcja do załadowania zadań z localStorage
+        function loadTasksFromStorage() {
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.forEach(task => addTaskToList(task));
+        }
+
+        // Funkcja do wyszukiwania zadań
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase();
+            const tasks = taskList.getElementsByTagName('li');
+
+            Array.from(tasks).forEach(function(task) {
+                const taskText = task.textContent.toLowerCase();
+                if (taskText.includes(filter)) {
+                    task.style.display = '';
+                } else {
+                    task.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
