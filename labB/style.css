@@ -1,0 +1,153 @@
+/* Resetowanie podstawowych ustawień */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Tło strony */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2e6d9;
+    color: #4d3e3e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Kontener aplikacji przypominający okno przeglądarki */
+#appContainer {
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    border: 2px solid #c7b198;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Pasek nagłówka */
+#windowHeader {
+    display: flex;
+    align-items: center;
+    background-color: #c7b198;
+    padding: 5px;
+    color: #4d3e3e;
+    font-weight: bold;
+}
+
+/* Przyciski okna */
+.windowButton {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+#closeButton {
+    background-color: #e74c3c;
+}
+
+#minimizeButton {
+    background-color: #f1c40f;
+}
+
+#maximizeButton {
+    background-color: #2ecc71;
+}
+
+
+/* Styl nagłówka aplikacji */
+#windowTitle {
+    color: #8b5e3c;
+    text-align: center;
+    margin: 2px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8em;
+}
+
+/* Pole wyszukiwania */
+#searchInput {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #8b5e3c;
+    border-radius: 5px;
+    background-color: #f7f1e8;
+    color: #4d3e3e;
+    margin: 5px;
+    margin-right: 5px;
+}
+
+/* Lista zadań */
+ul#taskList {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px;
+}
+
+li {
+    background-color: #e7d6c4;
+    padding: 10px;
+    border: 1px solid #8b5e3c;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #4d3e3e;
+}
+
+/* Formularz dodawania nowych zadań */
+form {
+    display: flex;
+    gap: 10px;
+    width: 98%;
+    margin: 5px;
+}
+
+input[type="text"], input[type="date"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #8b5e3c;
+    border-radius: 5px;
+    background-color: #f7f1e8;
+    color: #4d3e3e;
+}
+
+.highlight {
+    background-color: #f7f1e8; /* Kolor tła dla wyróżnienia */
+    font-weight: bold; /* Pogrubienie tekstu */
+    padding: 0 2px; /* Slight padding for better spacing */
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    background-color: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background-color: #b3896d;
+}
+
+/* Przycisk "Done!" */
+button {
+    background-color: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+
+button:hover {
+    background-color: #b3896d;
+}
