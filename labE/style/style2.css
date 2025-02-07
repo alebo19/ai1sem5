@@ -1,0 +1,269 @@
+header {
+    padding: 20px;
+}
+
+header h1 {
+    font-size: 5em;
+    font-family: 'Cinzel', serif;
+    color: #60361d;
+    text-shadow:
+            0 0 5px rgba(0, 0, 0, 0.6),
+            0 0 15px #905f3e;
+    margin: 0;
+    padding: 5px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: -30px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+body {
+    font-family: 'Lucida Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: #ffffff;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #371712;
+}
+
+main {
+    background-color: none;
+    border: 0px solid #905f3e;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    margin-left: 20px;
+    margin-right: 700px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.part1 {
+    background-color: rgb(144, 95, 62, 0.3);
+    border: 1px solid #905f3e;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:20px;
+}
+
+.part2 {
+    background-color: rgb(144, 95, 62, 0.3);
+    border: 1px solid #905f3e;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:20px;
+}
+
+.part3 {
+    background-color: rgb(144, 95, 62, 0.3);
+    border: 1px solid #905f3e;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom:20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2em;
+    font-style: italic;
+}
+
+h3 {
+    font-size: 1.4em;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin: 15px 0;
+    margin-top: 30px;
+    text-align: center;
+}
+
+p {
+    font-size: 1em;
+    margin: 10px 0;
+    text-align: center;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin: 2px auto;
+    border-radius: 10%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cup-image {
+    border-radius: 50%;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    background: linear-gradient(135deg, rgba(144, 95, 62, 0.7), rgba(144, 95, 62, 0.4));
+    border-radius: 8px;
+    margin: 10px 0;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.menu li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.menu strong {
+    font-size: 22px;
+    color: #371712;
+}
+
+.menu img {
+    margin-top: 20px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.meetus {
+    text-align: center;
+    margin-right: 100px;
+    margin-left: 100px;
+    padding: 10px;
+}
+
+.meetus h3 {
+    text-align: center;
+    font-weight: bold;
+    color: #371712;
+}
+
+footer {
+    padding: 20px;
+    margin-left: -680px;
+    text-align: center;
+}
+
+footer a {
+    color: #000000;
+    text-decoration: none;
+    font-style: italic;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #000000;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    header h1 {
+        font-size: 4em;
+    }
+
+    main {
+        margin-left: 30px;
+        margin-right: 30px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .menu {
+        margin-right: 10px;
+    }
+
+    .background-image img {
+        width: 600px;
+    }
+
+    .meetus {
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+
+    main {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .menu-wrapper {
+        padding: 30px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .menu-item {
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .background-image img {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .meetus {
+        margin: 0 10px;
+        padding: 5px;
+    }
+
+    footer {
+        padding: 10px;
+    }
+}

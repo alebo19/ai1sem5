@@ -1,0 +1,286 @@
+body {
+    font-family: 'Garamond', serif;
+    margin: 0;
+    padding: 0;
+    background-image: #000000;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 5em;
+    font-family: 'Playfair Display', serif;
+    color: #C19A6B;
+    text-shadow:
+            0 0 10px rgba(193, 154, 107, 0.8),
+            0 0 20px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    background-color: #371712;
+    border: 3px solid #C19A6B;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
+    color: #C19A6B;
+}
+
+h1 {
+    font-size: large;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 20px 0;
+}
+
+h3 {
+    font-size: 1.7em;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin: 15px 0;
+    margin-top: 30px;
+}
+
+p {
+    font-size: 1.4em;
+    margin: 10px 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+img {
+    display: block;
+    width: 400px;
+    height: 267px;
+    object-fit: cover;
+    margin: 2px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border: 3px solid #C19A6B;
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.menu-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    padding: 50px 0;
+}
+
+.menu {
+    z-index: 2;
+    max-width: 500px;
+    margin-right: 30px;
+    margin-top: -40px;
+}
+
+.menu-item {
+    background: rgba(144, 95, 62, 0.9);
+    color: #fff;
+    margin: 15px 0;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+    background: rgba(144, 95, 62, 1);
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.menu strong {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Merriweather', serif;
+}
+
+.menu p {
+    font-size: 14px;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.background-image {
+    flex: 1;
+    position: relative;
+}
+
+.background-image img {
+    width: 720px;
+    height: auto;
+    object-fit: cover;
+    border: 5px solid rgba(144, 95, 62, 0.9);
+    margin-right: 20px;
+    margin-top:-38px;
+}
+
+.image-container {
+    flex: 0 0 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-container img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.meetus {
+    text-align: center;
+    margin-right: 200px;
+    margin-left: 200px;
+    padding: 10px;
+}
+
+.meetus h3 {
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #371712;
+    text-shadow:
+            0 0 10px #8B5A2B,
+            0 0 20px #8B5A2B,
+            0 0 30px #ffffff,
+            0 0 40px #C19A6B;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #C19A6B;
+}
+
+footer a {
+    color: #C19A6B;
+    text-decoration: none;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    header h1 {
+        font-size: 4em;
+    }
+
+    main {
+        margin-left: 30px;
+        margin-right: 30px;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .menu {
+        margin-right: 10px;
+    }
+
+    .background-image img {
+        width: 600px;
+    }
+
+    .meetus {
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+
+    main {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .menu-wrapper {
+        padding: 30px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .menu-item {
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .background-image img {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    .meetus {
+        margin: 0 10px;
+        padding: 5px;
+    }
+
+    footer {
+        padding: 10px;
+    }
+}
