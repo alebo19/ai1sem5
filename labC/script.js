@@ -1,88 +1,130 @@
-let map;
-let imageMap; // Zmienna do przechowywania mapy w formie obrazu
+const map = L.map('map').setView([41.404173, 2.174332], 5);
 
-// Inicjalizacja mapy
-function initMap() {
-    map = L.map('map').setView([51.505, -0.09], 13); // Inicjalizacja mapy w domyślnej lokalizacji
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Warstwa mapy
-}
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri'
+}).addTo(map);
 
-// Pobieranie mapy (przy kliknięciu przycisku "Pobierz mapę")
-document.getElementById("getMapButton").addEventListener("click", function() {
-    // Zrób zrzut ekranu z mapy
-    html2canvas(document.getElementById('map')).then(function(canvas) {
-        imageMap = canvas; // Zapisujemy obraz mapy
-        const imgData = canvas.toDataURL('image/png'); // Pobieramy dane obrazu
-        splitImage(imgData); // Dzielimy mapę na kawałki
+navigator.geolocation.getCurrentPosition(
+    position => console.log("Geolocation permission granted."),
+    error => console.log("Geolocation permission denied.")
+);
+Notification.requestPermission().then(result => {
+    if (result === 'granted') {
+        console.log("Notification permission granted.");
+    }
+});
+
+document.getElementById("mojalokalizacja").addEventListener("click", function() {
+    navigator.geolocation.getCurrentPosition(position => {
+        const { latitude, longitude } = position.coords;
+        map.setView([latitude, longitude], 13);
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup('Twoja lokalizacja')
+            .openPopup();
     });
 });
 
-// Dzielimy obraz mapy na 16 kawałków
-function splitImage(imageData) {
-    const image = new Image();
-    image.src = imageData;
-
-    image.onload = function() {
-        const rows = 4;  // Podziel na 4 wiersze
-        const cols = 4;  // Podziel na 4 kolumny
-        const width = image.width / cols;
-        const height = image.height / rows;
-
-        let pieces = [];
-
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = width;
-                canvas.height = height;
-
-                // Obcinamy kawałek obrazu
-                ctx.drawImage(
-                    image,
-                    col * width, row * height, width, height,  // Źródło
-                    0, 0, width, height  // Cel
-                );
-
-                const imgPiece = canvas.toDataURL('image/png'); // Kawałek obrazu w formie Data URL
-                pieces.push(imgPiece); // Dodajemy do tablicy kawałków
-
-                // Tworzymy element div dla każdego kawałka
-                createPiece(imgPiece, row, col);
-            }
-        }
-    };
-}
-
-// Tworzymy elementy dla kawałków mapy
-function createPiece(imgPiece, row, col) {
-    const piece = document.createElement('div');
-    piece.classList.add('piece');
-    piece.setAttribute('draggable', 'true');
-    piece.style.backgroundImage = `url(${imgPiece})`;
-    piece.style.backgroundSize = 'cover';
-    piece.style.width = '100px'; // Szerokość kawałka
-    piece.style.height = '100px'; // Wysokość kawałka
-    piece.setAttribute('data-correct-position', `${row}-${col}`); // Zapamiętujemy poprawną pozycję
-    piece.setAttribute('data-position', `${row}-${col}`); // Początkowa pozycja
-
-    // Dodajemy kawałek do planszy
-    document.getElementById('board').appendChild(piece);
-}
-
-// Ustawienia mapy po kliknięciu "Moja lokalizacja"
-document.getElementById("locationButton").addEventListener("click", function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            alert(`Twoja lokalizacja: Latitude: ${lat}, Longitude: ${lon}`);
-
-            // Wyświetl lokalizację na mapie
-            map.setView([lat, lon], 13);
-            L.marker([lat, lon]).addTo(map);
-        });
-    } else {
-        alert("Geolokalizacja jest niedostępna.");
-    }
+document.getElementById("pobierzmapa").addEventListener("click", function() {
+    document.querySelector('.leaflet-control-zoom').style.display = 'none';
+    leafletImage(map, function(err, canvas) {
+        document.querySelector('.leaflet-control-zoom').style.display = '';
+        const img = document.getElementById('map-screenshot');
+        img.src = canvas.toDataURL();
+        img.style.display = 'block';
+        splitImage(canvas);
+    });
 });
+
+function splitImage(canvas) {
+    const puzzleBoard = document.getElementById("puzzle-board");
+    puzzleBoard.innerHTML = '';
+    const pieceSize = 80;
+    const pieces = [];
+
+    for (let y = 0; y < 4; y++) {
+        for (let x = 0; x < 4; x++) {
+            const piece = document.createElement("div");
+            piece.classList.add("puzzle-piece");
+            piece.style.backgroundImage = `url(${canvas.toDataURL()})`;
+            piece.style.backgroundPosition = `-${x * pieceSize}px -${y * pieceSize}px`;
+            piece.draggable = true;
+            piece.dataset.index = y * 4 + x;
+            pieces.push(piece);
+        }
+    }
+
+    pieces.sort(() => Math.random() - 0.5).forEach(piece => puzzleBoard.appendChild(piece));
+
+    pieces.forEach(piece => {
+        piece.addEventListener("dragstart", dragStart);
+    });
+
+    const assemblyArea = document.getElementById("assembly-area");
+    assemblyArea.innerHTML = '';
+    for (let i = 0; i < 16; i++) {
+        const dropZone = document.createElement("div");
+        dropZone.classList.add("puzzle-piece");
+        dropZone.dataset.index = i;
+        dropZone.addEventListener("drop", drop);
+        dropZone.addEventListener("dragover", dragOver);
+        assemblyArea.appendChild(dropZone);
+    }
+}
+
+function dragStart(event) {
+    event.dataTransfer.setData("text", event.target.dataset.index);
+}
+
+function drop(event) {
+    event.preventDefault();
+    const draggedIndex = event.dataTransfer.getData("text");
+    const draggedPiece = document.querySelector(`[data-index='${draggedIndex}']`);
+    const targetPiece = event.target;
+
+    if (!targetPiece.style.backgroundImage) {
+        targetPiece.style.backgroundImage = draggedPiece.style.backgroundImage;
+        targetPiece.style.backgroundPosition = draggedPiece.style.backgroundPosition;
+        targetPiece.dataset.index = draggedPiece.dataset.index;
+
+        draggedPiece.style.backgroundImage = '';
+        draggedPiece.style.backgroundPosition = '';
+        draggedPiece.dataset.index = '';
+    } else {
+        const tempBackgroundImage = targetPiece.style.backgroundImage;
+        const tempBackgroundPosition = targetPiece.style.backgroundPosition;
+        const tempIndex = targetPiece.dataset.index;
+
+        targetPiece.style.backgroundImage = draggedPiece.style.backgroundImage;
+        targetPiece.style.backgroundPosition = draggedPiece.style.backgroundPosition;
+        targetPiece.dataset.index = draggedPiece.dataset.index;
+
+        draggedPiece.style.backgroundImage = tempBackgroundImage;
+        draggedPiece.style.backgroundPosition = tempBackgroundPosition;
+        draggedPiece.dataset.index = tempIndex;
+    }
+
+    checkIfComplete();
+}
+
+function dragOver(event) {
+    event.preventDefault();
+}
+
+function checkIfComplete() {
+    const pieces = Array.from(document.querySelectorAll("#assembly-area .puzzle-piece"));
+    const isComplete = pieces.every((piece, index) => {
+        return piece.dataset.index == index && piece.style.backgroundImage;
+    });
+
+    if (isComplete) {
+        setTimeout(() => {
+            if (Notification.permission === "granted") {
+                new Notification("Puzzle ułożone!");
+            } else {
+                alert("Puzzle ułożone!");
+            }
+        }, 500);
+    } else {
+        console.log("Puzzle jeszcze nie są ułożone.");
+    }
+}

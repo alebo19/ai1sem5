@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a23a513-cd53-41b0-a680-64e8b17e0d2e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
-    </list>
+    <list default="true" id="ec5d1b75-9502-4547-b01d-2484cdf4c614" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,14 +13,11 @@
   <component name="ComposerSettings">
     <execution />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Users\OlaPC\Downloads\php-interpreter\php.exe" />
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
+  "associatedIndex": 0
 }]]></component>
-  <component name="ProjectId" id="2siQVhsdqiKAoePhaGOqT17kSe8" />
+  <component name="ProjectId" id="2siyljdYvTjZDu9k0E28yrROduq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,8 +25,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,12 +45,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1a23a513-cd53-41b0-a680-64e8b17e0d2e" name="Changes" comment="" />
-      <created>1738935940518</created>
+      <changelist id="ec5d1b75-9502-4547-b01d-2484cdf4c614" name="Changes" comment="" />
+      <created>1738952844152</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1738935940518</updated>
-      <workItem from="1738935941612" duration="1082000" />
+      <updated>1738952844152</updated>
+      <workItem from="1738952849063" duration="1932000" />
     </task>
     <servers />
   </component>
