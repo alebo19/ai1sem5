@@ -1,115 +1,88 @@
-var map = L.map('map').setView([53.4481, 14.5372], 13);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-}).addTo(map);
+let map;
+let imageMap; // Zmienna do przechowywania mapy w formie obrazu
 
-function getLocation() {
-    map.locate({setView: true, maxZoom: 18});
-    map.on('locationfound', function (event) {
-        map.flyTo(event.latlng, 18);
-        document.getElementById("latitude").value = event.latlng.lat;
-        document.getElementById("longitude").value = event.latlng.lng;
-    });
-    document.getElementById("location").disabled = true;
+// Inicjalizacja mapy
+function initMap() {
+    map = L.map('map').setView([51.505, -0.09], 13); // Inicjalizacja mapy w domyślnej lokalizacji
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Warstwa mapy
 }
 
-function doImage() {
-    map.zoomControl.remove();
-    leafletImage(map, function(err, canvas){
-        var imageElement = document.createElement("img");
-        var dimensions = map.getSize();
-        imageElement.id = "image";
-        imageElement.width = dimensions.x;
-        imageElement.height = dimensions.y;
-        imageElement.src = canvas.toDataURL();
-        document.getElementById("map").style.display = "none";
-        var resultDiv = document.getElementById("result");
-        resultDiv.style.width = "auto";
-        resultDiv.style.height = "auto";
-        resultDiv.style.float = "left";
-        resultDiv.style.marginLeft = "40px";
-        resultDiv.appendChild(imageElement);
-        document.getElementById("raster").disabled = true;
-        document.getElementById("puzzle").disabled = false;
+// Pobieranie mapy (przy kliknięciu przycisku "Pobierz mapę")
+document.getElementById("getMapButton").addEventListener("click", function() {
+    // Zrób zrzut ekranu z mapy
+    html2canvas(document.getElementById('map')).then(function(canvas) {
+        imageMap = canvas; // Zapisujemy obraz mapy
+        const imgData = canvas.toDataURL('image/png'); // Pobieramy dane obrazu
+        splitImage(imgData); // Dzielimy mapę na kawałki
     });
-}
+});
 
-function makePuzzle() {
-    var image = document.getElementById("image");
-    var imagePieces = [];
-    var pieceWidth = image.width / 4;
-    var pieceHeight = image.height / 4;
+// Dzielimy obraz mapy na 16 kawałków
+function splitImage(imageData) {
+    const image = new Image();
+    image.src = imageData;
 
-    for (var x = 0; x < 4; ++x) {
-        for (var y = 0; y < 4; ++y) {
-            var canvas = document.createElement('canvas');
-            canvas.width = pieceWidth;
-            canvas.height = pieceHeight;
-            var context = canvas.getContext('2d');
-            context.drawImage(image, x * pieceWidth, y * pieceHeight, pieceWidth, pieceHeight, 0, 0, canvas.width, canvas.height);
-            imagePieces.push(canvas.toDataURL());
+    image.onload = function() {
+        const rows = 4;  // Podziel na 4 wiersze
+        const cols = 4;  // Podziel na 4 kolumny
+        const width = image.width / cols;
+        const height = image.height / rows;
+
+        let pieces = [];
+
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = width;
+                canvas.height = height;
+
+                // Obcinamy kawałek obrazu
+                ctx.drawImage(
+                    image,
+                    col * width, row * height, width, height,  // Źródło
+                    0, 0, width, height  // Cel
+                );
+
+                const imgPiece = canvas.toDataURL('image/png'); // Kawałek obrazu w formie Data URL
+                pieces.push(imgPiece); // Dodajemy do tablicy kawałków
+
+                // Tworzymy element div dla każdego kawałka
+                createPiece(imgPiece, row, col);
+            }
         }
-    }
-
-    for (var i = 0; i < 16; i++){
-        var img = document.createElement("img");
-        img.src = imagePieces[i];
-        img.style.position = "absolute";
-        img.draggable = true;
-        img.className = "draggable";
-        img.id = i.toString();
-        document.getElementById('mixedPuzzleContainer').children[i].innerHTML = '';
-        document.getElementById('mixedPuzzleContainer').children[i].appendChild(img);
-    }
-
-    const grid = document.querySelector('#mixedPuzzleContainer');
-    for(let i = 16; i >= 0; i--) {
-        grid.appendChild(grid.children[Math.random() * i | 0]);
-    }
-
-    document.getElementById("puzzle").disabled = true;
-
-    const draggables = document.querySelectorAll('.draggable');
-    const containers = document.querySelectorAll('.sp');
-    draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', () => {
-            draggable.classList.add('dragging');
-        });
-    });
-
-    draggables.forEach(draggable => {
-        draggable.addEventListener('dragend', () => {
-            draggable.classList.remove('dragging');
-        });
-    });
-
-    containers.forEach(container => {
-        container.addEventListener('dragover', e => {
-            e.preventDefault();
-            const draggable = document.querySelector('.dragging');
-            container.appendChild(draggable);
-        });
-    });
-
-    var points = 0
-    containers.forEach(container => {
-        container.addEventListener('drop', () => {
-            if(container.id === container.children[0].id){
-                points++
-                console.log("dobrze");
-            }
-            else{
-                console.log("zle");
-            }
-            if(isSolution(points)){
-                alert("BRAWO!!!");
-                console.log("brawo");
-            }
-        })
-    })
-
+    };
 }
 
-function isSolution(points){
-    return (points===16) ? true : false
+// Tworzymy elementy dla kawałków mapy
+function createPiece(imgPiece, row, col) {
+    const piece = document.createElement('div');
+    piece.classList.add('piece');
+    piece.setAttribute('draggable', 'true');
+    piece.style.backgroundImage = `url(${imgPiece})`;
+    piece.style.backgroundSize = 'cover';
+    piece.style.width = '100px'; // Szerokość kawałka
+    piece.style.height = '100px'; // Wysokość kawałka
+    piece.setAttribute('data-correct-position', `${row}-${col}`); // Zapamiętujemy poprawną pozycję
+    piece.setAttribute('data-position', `${row}-${col}`); // Początkowa pozycja
+
+    // Dodajemy kawałek do planszy
+    document.getElementById('board').appendChild(piece);
 }
+
+// Ustawienia mapy po kliknięciu "Moja lokalizacja"
+document.getElementById("locationButton").addEventListener("click", function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            alert(`Twoja lokalizacja: Latitude: ${lat}, Longitude: ${lon}`);
+
+            // Wyświetl lokalizację na mapie
+            map.setView([lat, lon], 13);
+            L.marker([lat, lon]).addTo(map);
+        });
+    } else {
+        alert("Geolokalizacja jest niedostępna.");
+    }
+});

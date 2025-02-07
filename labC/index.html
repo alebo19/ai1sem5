@@ -1,64 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Maps with Leaflet</title>
-    <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css" />
-    <script src="leaflet-1.7.1/leaflet-src.js"></script>
-    <script src="leaflet-1.7.1/leaflet-providers.js"></script>
-    <script src="leaflet-1.7.1/leaflet-image.js"></script>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Układanka z mapą</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Jeśli masz plik CSS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <div id="container">
-        <div id="result">
-            <div id="map"></div>
-        </div>
-        <div class="solved-puzzle" id="solvedPuzzleContainer">
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-                <div class="sp"></div>
-            </div>
-        </div>
-    </div>
+<h1>Układanka z mapą</h1>
 
-<div class="buttons">
-    <button onclick="getLocation()" id="location">Moja lokalizacja</button>
-    <button onclick="doImage()" id="raster">Pobierz mape</button>
-    <button onclick="makePuzzle()" disabled id="puzzle">PUZZLE</button>
-</div>
+<!-- Przyciski -->
+<button id="locationButton">Moja lokalizacja</button>
+<button id="getMapButton">Pobierz mapę</button>
 
-<div class="mixed-puzzle" id="mixedPuzzleContainer">
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-    <div class="mp"></div>
-</div>
+<!-- Mapa -->
+<div id="map" style="height: 400px;"></div>
+
+<!-- Powiadomienie -->
+<div id="notification" style="display:none;"></div>
+
+<!-- Plansza -->
+<div id="board"></div>
+
 <script src="script.js"></script>
 </body>
 </html>
